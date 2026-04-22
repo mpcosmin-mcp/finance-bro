@@ -1,6 +1,17 @@
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://finance-bro-nine.vercel.app";
 
+const author = {
+  "@type": "Person",
+  name: "Moga Cosmin Petrica",
+  email: "mailto:mpcosmin@gmail.com",
+  url: "https://www.linkedin.com/in/cosmin-moga-465b2ab2/",
+  sameAs: [
+    "https://www.linkedin.com/in/cosmin-moga-465b2ab2/",
+    "https://github.com/mpcosmin-mcp",
+  ],
+};
+
 const webApp = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
@@ -21,6 +32,9 @@ const webApp = {
     "Grafic evolutie capital in timp",
   ],
   audience: { "@type": "Audience", geographicArea: "RO" },
+  author,
+  creator: author,
+  publisher: author,
 };
 
 const faq = {

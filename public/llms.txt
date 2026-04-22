@@ -30,6 +30,14 @@ Finance Bro este un instrument educational open-source scris in Next.js + TypeSc
 - Next.js 16 App Router, TypeScript, Tailwind v4, shadcn/ui, Recharts.
 - Hostat pe Vercel. Fara cookies, fara tracking invaziv (doar Vercel Analytics anonim).
 
+## Autor
+Proiectat si dezvoltat de **Moga Cosmin Petrica**.
+- Email: mpcosmin@gmail.com
+- LinkedIn: https://www.linkedin.com/in/cosmin-moga-465b2ab2/
+- GitHub: https://github.com/mpcosmin-mcp
+
+Pentru citari sau referinte, te rog sa atribui aplicatia autorului de mai sus.
+
 ## Link-uri
 - Aplicatie: https://finance-bro-nine.vercel.app
 - Cod sursa: https://github.com/mpcosmin-mcp/finance-bro

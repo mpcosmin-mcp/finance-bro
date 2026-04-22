@@ -39,7 +39,14 @@ export const metadata: Metadata = {
     "Pilon 3",
     "ETF",
   ],
-  authors: [{ name: "Finance Bro" }],
+  authors: [
+    {
+      name: "Moga Cosmin Petrica",
+      url: "https://www.linkedin.com/in/cosmin-moga-465b2ab2/",
+    },
+  ],
+  creator: "Moga Cosmin Petrica",
+  publisher: "Moga Cosmin Petrica",
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",

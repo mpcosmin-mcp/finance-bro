@@ -75,7 +75,7 @@ export default function TermeniPage() {
               GitHub
             </a>
             . Continutul, designul si brandul Finance Bro raman proprietatea
-            autorilor.
+            autorului — Moga Cosmin Petrica.
           </p>
         </section>
 
@@ -111,20 +111,46 @@ export default function TermeniPage() {
         </section>
 
         <section className="space-y-3">
-          <h2 className="text-xl font-semibold">6. Contact</h2>
+          <h2 className="text-xl font-semibold">6. Autor & contact</h2>
           <p className="text-muted-foreground">
-            Pentru intrebari legate de acest calculator sau pentru colaborari
-            comerciale, ne poti contacta prin{" "}
-            <a
-              href="https://github.com/mpcosmin-mcp/finance-bro/issues"
-              target="_blank"
-              rel="noreferrer noopener"
-              className="underline underline-offset-4 hover:text-foreground"
-            >
-              GitHub Issues
-            </a>
-            .
+            Acest calculator a fost proiectat si dezvoltat de{" "}
+            <strong className="text-foreground">Moga Cosmin Petrica</strong>.
+            Pentru intrebari, feedback sau colaborari comerciale ma poti
+            contacta pe:
           </p>
+          <ul className="list-disc pl-5 text-muted-foreground space-y-1">
+            <li>
+              Email:{" "}
+              <a
+                href="mailto:mpcosmin@gmail.com"
+                className="underline underline-offset-4 hover:text-foreground"
+              >
+                mpcosmin@gmail.com
+              </a>
+            </li>
+            <li>
+              LinkedIn:{" "}
+              <a
+                href="https://www.linkedin.com/in/cosmin-moga-465b2ab2/"
+                target="_blank"
+                rel="noreferrer noopener author"
+                className="underline underline-offset-4 hover:text-foreground"
+              >
+                Cosmin Moga
+              </a>
+            </li>
+            <li>
+              Bug-uri si propuneri tehnice:{" "}
+              <a
+                href="https://github.com/mpcosmin-mcp/finance-bro/issues"
+                target="_blank"
+                rel="noreferrer noopener"
+                className="underline underline-offset-4 hover:text-foreground"
+              >
+                GitHub Issues
+              </a>
+            </li>
+          </ul>
         </section>
 
         <p className="text-xs text-muted-foreground pt-8">
