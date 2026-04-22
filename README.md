@@ -2,7 +2,7 @@
 
 > Calculator de libertate financiara (FIRE — *Financial Independence, Retire Early*) pentru audienta din Romania.
 
-**Live demo:** _coming soon (Vercel deploy)_
+**Live:** [finance-bro-nine.vercel.app](https://finance-bro-nine.vercel.app)
 **Repository:** [github.com/mpcosmin-mcp/finance-bro](https://github.com/mpcosmin-mcp/finance-bro)
 
 ---

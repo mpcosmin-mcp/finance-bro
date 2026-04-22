@@ -226,7 +226,7 @@ export default function FireCalculator() {
           </CardContent>
         </Card>
 
-        <div className="space-y-6">
+        <div className="space-y-6 min-w-0">
           <div className="grid gap-4 sm:grid-cols-2">
             <KpiCard
               label="Capital necesar"
@@ -252,20 +252,116 @@ export default function FireCalculator() {
           </div>
 
           <Card>
-            <CardHeader className="flex flex-row items-start justify-between">
-              <div>
+            <CardHeader className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+              <div className="min-w-0">
                 <CardTitle>Scenarii venit vs. cheltuieli</CardTitle>
                 <CardDescription>
                   Introdu cate scenarii vrei. Calculam in cat timp ajungi la
                   capitalul necesar, cu si fara investitii.
                 </CardDescription>
               </div>
-              <Button variant="outline" size="sm" onClick={addScenariu}>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={addScenariu}
+                className="self-start sm:self-auto"
+              >
                 <Plus className="size-4" /> Scenariu
               </Button>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="overflow-x-auto">
+              <div className="space-y-3 md:hidden">
+                {rezultat.scenarii.map((s) => (
+                  <div
+                    key={s.id}
+                    className="rounded-lg border bg-card p-4 space-y-3"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium">
+                        Scenariu {s.id}
+                      </span>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => removeScenariu(s.id)}
+                        disabled={rezultat.scenarii.length <= 1}
+                        aria-label="Sterge scenariul"
+                        className="-mr-2"
+                      >
+                        <Trash2 className="size-4" />
+                      </Button>
+                    </div>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="space-y-1.5">
+                        <Label className="text-xs text-muted-foreground">
+                          Venit lunar
+                        </Label>
+                        <Input
+                          type="number"
+                          inputMode="numeric"
+                          step={500}
+                          value={Number.isFinite(s.venit) ? s.venit : ""}
+                          onChange={(e) =>
+                            updateScenariu(s.id, {
+                              venit:
+                                e.target.value === ""
+                                  ? 0
+                                  : Number(e.target.value),
+                            })
+                          }
+                        />
+                      </div>
+                      <div className="space-y-1.5">
+                        <Label className="text-xs text-muted-foreground">
+                          Cheltuieli
+                        </Label>
+                        <Input
+                          type="number"
+                          inputMode="numeric"
+                          step={500}
+                          value={
+                            Number.isFinite(s.cheltuieli) ? s.cheltuieli : ""
+                          }
+                          onChange={(e) =>
+                            updateScenariu(s.id, {
+                              cheltuieli:
+                                e.target.value === ""
+                                  ? 0
+                                  : Number(e.target.value),
+                            })
+                          }
+                        />
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-3 rounded-md bg-muted/50 p-3 text-sm">
+                      <Stat label="Economii" value={formatRon(s.economii)} />
+                      <Stat
+                        label="Rata"
+                        value={formatPct(s.rataEconomisire)}
+                      />
+                      <Stat
+                        label="Fara investitii"
+                        value={
+                          isFinite(s.luniFaraInvestitii)
+                            ? `${formatNum(s.luniFaraInvestitii / 12)} ani`
+                            : "—"
+                        }
+                      />
+                      <Stat
+                        label="Cu investitii"
+                        value={
+                          isFinite(s.aniCuInvestitii)
+                            ? `${formatNum(s.aniCuInvestitii)} ani`
+                            : "—"
+                        }
+                        emphasis
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="hidden md:block overflow-x-auto">
                 <Table>
                   <TableHeader>
                     <TableRow>
@@ -338,7 +434,7 @@ export default function FireCalculator() {
                   <TabsTrigger value="explicatie">Cum calculam</TabsTrigger>
                 </TabsList>
                 <TabsContent value="grafic" className="mt-4">
-                  <div className="h-[320px] w-full">
+                  <div className="h-[240px] sm:h-[320px] w-full min-w-0">
                     <ResponsiveContainer width="100%" height="100%">
                       <AreaChart data={chartData}>
                         <defs>
@@ -469,9 +565,6 @@ export default function FireCalculator() {
         </div>
       </div>
 
-      <footer className="text-center text-xs text-muted-foreground pt-4">
-        Estimare informativa. Nu constituie sfat financiar.
-      </footer>
     </div>
   );
 }
@@ -507,6 +600,33 @@ function KpiCard({
         )}
       </CardContent>
     </Card>
+  );
+}
+
+function Stat({
+  label,
+  value,
+  emphasis,
+}: {
+  label: string;
+  value: string;
+  emphasis?: boolean;
+}) {
+  return (
+    <div className="space-y-0.5">
+      <div className="text-[11px] uppercase tracking-wide text-muted-foreground">
+        {label}
+      </div>
+      <div
+        className={
+          emphasis
+            ? "font-semibold tabular-nums"
+            : "font-medium tabular-nums"
+        }
+      >
+        {value}
+      </div>
+    </div>
   );
 }
 
