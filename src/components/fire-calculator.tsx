@@ -21,8 +21,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { NumericInput } from "@/components/numeric-input";
 import { Separator } from "@/components/ui/separator";
 import {
   Table,
@@ -296,18 +296,12 @@ export default function FireCalculator() {
                         <Label className="text-xs text-muted-foreground">
                           Venit lunar
                         </Label>
-                        <Input
-                          type="number"
-                          inputMode="numeric"
-                          step={500}
-                          value={Number.isFinite(s.venit) ? s.venit : ""}
-                          onChange={(e) =>
-                            updateScenariu(s.id, {
-                              venit:
-                                e.target.value === ""
-                                  ? 0
-                                  : Number(e.target.value),
-                            })
+                        <NumericInput
+                          allowDecimals={false}
+                          min={0}
+                          value={s.venit}
+                          onChange={(v) =>
+                            updateScenariu(s.id, { venit: v })
                           }
                         />
                       </div>
@@ -315,20 +309,12 @@ export default function FireCalculator() {
                         <Label className="text-xs text-muted-foreground">
                           Cheltuieli
                         </Label>
-                        <Input
-                          type="number"
-                          inputMode="numeric"
-                          step={500}
-                          value={
-                            Number.isFinite(s.cheltuieli) ? s.cheltuieli : ""
-                          }
-                          onChange={(e) =>
-                            updateScenariu(s.id, {
-                              cheltuieli:
-                                e.target.value === ""
-                                  ? 0
-                                  : Number(e.target.value),
-                            })
+                        <NumericInput
+                          allowDecimals={false}
+                          min={0}
+                          value={s.cheltuieli}
+                          onChange={(v) =>
+                            updateScenariu(s.id, { cheltuieli: v })
                           }
                         />
                       </div>
@@ -641,14 +627,15 @@ function Field({
   onChange: (v: number) => void;
   step?: number;
 }) {
+  const allowDecimals = step < 1;
   return (
     <div className="space-y-2">
       <Label className="text-sm font-medium">{label}</Label>
-      <Input
-        type="number"
-        value={Number.isFinite(value) ? value : ""}
-        step={step}
-        onChange={(e) => onChange(e.target.value === "" ? 0 : Number(e.target.value))}
+      <NumericInput
+        value={value}
+        onChange={onChange}
+        min={0}
+        allowDecimals={allowDecimals}
       />
     </div>
   );
@@ -667,14 +654,12 @@ function PercentField({
     <div className="space-y-2">
       <Label className="text-sm font-medium">{label}</Label>
       <div className="relative">
-        <Input
-          type="number"
+        <NumericInput
           className="pr-8"
-          step={0.1}
-          value={(value * 100).toFixed(1)}
-          onChange={(e) =>
-            onChange(e.target.value === "" ? 0 : Number(e.target.value) / 100)
-          }
+          min={0}
+          decimals={1}
+          value={Number((value * 100).toFixed(1))}
+          onChange={(v) => onChange(v / 100)}
         />
         <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
           %
@@ -693,14 +678,12 @@ function PercentInput({
 }) {
   return (
     <div className="relative">
-      <Input
-        type="number"
+      <NumericInput
         className="pr-8 h-9"
-        step={1}
+        min={0}
+        allowDecimals={false}
         value={Math.round(value * 100)}
-        onChange={(e) =>
-          onChange(e.target.value === "" ? 0 : Number(e.target.value) / 100)
-        }
+        onChange={(v) => onChange(v / 100)}
       />
       <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">
         %
@@ -717,14 +700,12 @@ function NumberCell({
   onChange: (v: number) => void;
 }) {
   return (
-    <Input
-      type="number"
+    <NumericInput
       className="h-8 w-28"
-      step={500}
-      value={Number.isFinite(value) ? value : ""}
-      onChange={(e) =>
-        onChange(e.target.value === "" ? 0 : Number(e.target.value))
-      }
+      allowDecimals={false}
+      min={0}
+      value={value}
+      onChange={onChange}
     />
   );
 }

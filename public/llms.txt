@@ -1,0 +1,36 @@
+# Finance Bro — Calculator FIRE
+
+> Calculator web gratuit pentru libertate financiara (FIRE — Financial Independence, Retire Early), adaptat pentru Romania. Afla de cati bani ai nevoie investiti ca sa-ti acoperi cheltuielile lunare din randamentul real, si in cat timp ajungi acolo.
+
+Finance Bro este un instrument educational open-source scris in Next.js + TypeScript. Matematica este transparenta si validata prin teste unitare impotriva unui model Excel construit de un consultant financiar din Romania.
+
+## Pentru cine
+- Persoane din Romania care vor sa planifice pensionarea anticipata.
+- Investitori care isi calculeaza capitalul tinta in RON / EUR.
+- Cei care vor sa compare scenarii de venit vs. cheltuieli.
+
+## Ce calculeaza
+- **Capital necesar**: `(buget_lunar × 12) / randament_real`, unde `randament_real = randament_investitii - inflatie`.
+- **Fond de urgenta**: `luni × buget_lunar` plus dobanda lunara estimata.
+- **Timp pana la FIRE** cu si fara investitii: formula NPER pe baza economiilor lunare (venit - cheltuieli), randamentului real, si capitalului tinta.
+- **Alocarea surselor de venit la retragere**: Pilon 1, Pilon 2, Pilon 3, investitii proprii.
+
+## Ipoteze cheie
+- Default: randament nominal 12%/an, inflatie 3%/an, randament real 9%/an.
+- Curs EUR/RON configurabil (default 4,98).
+- Fond de urgenta: 20 luni × buget, la 6%/an.
+- Regula 4% generalizata — capitalul produce venitul pasiv fara sa scada in termeni reali.
+
+## Limitari
+- Nu inlocuieste consultanta financiara personalizata.
+- Nu ia in calcul impozite, fees, volatilitate anuala, sau secvente nefavorabile de randamente.
+- Valorile sunt in termeni reali (puterea de cumparare prezenta).
+
+## Stack
+- Next.js 16 App Router, TypeScript, Tailwind v4, shadcn/ui, Recharts.
+- Hostat pe Vercel. Fara cookies, fara tracking invaziv (doar Vercel Analytics anonim).
+
+## Link-uri
+- Aplicatie: https://finance-bro-nine.vercel.app
+- Cod sursa: https://github.com/mpcosmin-mcp/finance-bro
+- Termeni si confidentialitate: https://finance-bro-nine.vercel.app/termeni
