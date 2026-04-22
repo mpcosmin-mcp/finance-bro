@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Finance Bro — Calculator FIRE
 
-## Getting Started
+Calculator de libertate financiara (FIRE — Financial Independence, Retire Early) pentru audienta din Romania. Iti arata:
 
-First, run the development server:
+- **Capitalul de care ai nevoie** ca sa-ti acoperi cheltuielile lunare din randamentul real al investitiilor
+- **Cat dureaza sa ajungi acolo** in functie de economiile tale lunare, cu si fara investitii
+- **Split-ul surselor de venit** la retragere (Pilon 1 / 2 / 3 pensie + investitii)
+- **Fond de urgenta** recomandat, cu dobanda estimata
+
+Rescris in web dupa un Excel FIRE existent — vezi [`docs/FIRE plan.xlsx`](docs/FIRE%20plan.xlsx) pentru versiunea originala.
+
+## Stack
+
+- **Next.js 15** (App Router) + **TypeScript** + **Tailwind CSS**
+- **shadcn/ui** (Radix + Lucide)
+- **Recharts** pentru graficul de evolutie a portofoliului
+- Logica financiara izolata in [`src/lib/fire.ts`](src/lib/fire.ts) — functii pure, usor de testat si reutilizat in modulele viitoare
+
+## Development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Build productie:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+npm start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Structura
 
-## Learn More
+```
+src/
+  app/                    # Next.js App Router (layout + page)
+  components/
+    fire-calculator.tsx   # Componenta principala
+    ui/                   # shadcn/ui primitives
+  lib/
+    fire.ts               # Formule FIRE (pure functions)
+    format.ts             # Formatare RON / EUR / %
+    utils.ts              # cn() helper
+docs/
+  FIRE plan.xlsx          # Excel original (referinta)
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Formula principala
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Capitalul necesar pentru a sustine un venit lunar pasiv:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+capital = (venit_lunar × 12) / randament_real
+randament_real = randament_nominal - inflatie
+```
 
-## Deploy on Vercel
+Timpul pana la capitalul tinta, contribuind lunar si capitalizand randamentul:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+luni = ln(1 + capital × r / economii_lunare) / ln(1 + r)
+r = randament_real / 12
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+(echivalentul functiei Excel `NPER`)
+
+## Roadmap
+
+- [x] **v1** — Calculator FIRE static (acum)
+- [ ] **v2** — Platforma de tracking investitii (ETF, bonds, crypto, imobiliare) cu randament anual
+- [ ] Auth + persistare cont utilizator
+- [ ] Dashboard consultant cu mai multi clienti
+
+## Deploy
+
+Orice platforma care ruleaza Next.js. Recomandat: [Vercel](https://vercel.com) (zero config + preview deployments per PR).
+
+---
+
+*Estimari informative. Nu constituie sfat financiar.*
